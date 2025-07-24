@@ -6,10 +6,15 @@ module Api
       # GET /api/v1/jobs
       def index
         if params[:user_id]
-          @jobs = Job.where(user_id: params[:user_id].to_i)
+          # let's caching here
+          cache_job_key = "jobs_user_id_#{params[:user_id]}"
+          @jobs =  Rails.cache.fetch(cache_job_key, expires_in: 10.minutes) do
+            Job.where(user_id: params[:user_id].to_i)
+          end
         else
           @jobs = Job.all
         end
+
         render json: @jobs
       end
 

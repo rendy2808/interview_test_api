@@ -21,3 +21,12 @@ Ketika menyelesaikan tugas ini, kami akan menilai:
 ## Note
 - Anda bisa menggunakan gem rspec untuk unit test
 - Anda bisa menggunakan cache built-in rails atau third party sesuai pilihan Anda
+
+## -----------------------UPDATED FROM RENDY------------------------------------------
+
+- Saya sudah menambahkan tes: models, controllers(request), dan unit_tests (untuk case ini request tapi full mocking DB dan Memorystore)
+- Saya sudah menambahkan cache mechanism di jobs_controller.rb saat index dengan param user_id
+- step awal setelah clone: run bundle install (pastikan ruby dan rails version di lokal sesuai dengan Gemfile)
+- untuk menjalankan tes models: bundle exec rspec spec/models
+- untuk menjalankan tes controllers: bundle exec rspec spec/controllers
+- untuk menjalankan tes units: bundle exec rspec spec/unit_tests

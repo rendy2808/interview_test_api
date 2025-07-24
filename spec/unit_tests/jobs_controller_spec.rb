@@ -34,6 +34,20 @@ RSpec.describe Api::V1::JobsController, type: :controller do
         expect(json_response.first['user_id']).to eq(user1.id)
       end
     end
+
+    context 'when user_id provided and cached' do
+      before do
+        allow(Rails.cache).to receive(:fetch).with("jobs_user_id_#{user1.id}", expires_in: 10.minutes).and_return([job1])
+        get :index, params: { user_id: user1.id }
+      end
+
+      it 'returns cached jobs for the specified user' do
+        expect(response).to have_http_status(:success)
+        json_response = JSON.parse(response.body)
+        expect(json_response.size).to eq(1)
+        expect(json_response.first['user_id']).to eq(user1.id)
+      end
+    end
   end
 
   describe '#show' do
